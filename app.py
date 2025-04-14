@@ -5,6 +5,7 @@ from nltk.stem import WordNetLemmatizer
 import ast
 import os
 import nltk
+import rarfile
 
 # Initialize lemmatizer
 lemmatizer = WordNetLemmatizer()
@@ -82,23 +83,36 @@ def load_vector_space(file_path):
         raise ValueError("Unsupported vector space format")
 
 # Read document content
-''' def read_document_content(doc_id):
+""" def read_document_content(doc_id):
     file_path = f"Abstracts/{doc_id + 1}.txt"  # Adjust for 1-indexed filenames
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     else:
-        return "Document content not found." '''
+        return "Document content not found." """
 
 
+
+
+# Extract and read document content from Abstracts.rar
 def read_document_content(doc_id):
-    current_dir = os.path.dirname(os.path.abspath(__file__))  # Directory of the current script
-    file_path = os.path.join(current_dir, 'Abstracts', f"{doc_id + 1}.txt")  # Relative path
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    rar_path = os.path.join(current_dir, 'Abstracts.rar')
+    extract_dir = os.path.join(current_dir, 'Abstracts')
+
+    # Extract the .rar file if not already extracted
+    if not os.path.exists(extract_dir):
+        with rarfile.RarFile(rar_path) as rf:
+            rf.extractall(extract_dir)
+
+    # Read the specific document
+    file_path = os.path.join(extract_dir, f"{doc_id + 1}.txt")
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     else:
         return "Document content not found."
+
         
 # Load all necessary data
 @st.cache_data
