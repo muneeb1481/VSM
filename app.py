@@ -4,15 +4,9 @@ import math
 from nltk.stem import WordNetLemmatizer
 import ast
 import os
-import nltk
-
 
 # Initialize lemmatizer
 lemmatizer = WordNetLemmatizer()
-
-
-nltk.download('wordnet')
-nltk.download('omw-1.4')
 
 # Custom CSS for styling
 st.markdown("""
@@ -83,14 +77,14 @@ def load_vector_space(file_path):
         raise ValueError("Unsupported vector space format")
 
 # Read document content
- def read_document_content(doc_id):
+def read_document_content(doc_id):
     file_path = f"Abstracts/{doc_id + 1}.txt"  # Adjust for 1-indexed filenames
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     else:
-        return "Document content not found." 
-        
+        return "Document content not found."
+
 # Load all necessary data
 @st.cache_data
 def load_all_data():
