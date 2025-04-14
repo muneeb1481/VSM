@@ -5,6 +5,7 @@ from nltk.stem import WordNetLemmatizer
 import ast
 import os
 import nltk
+
 # Initialize lemmatizer
 lemmatizer = WordNetLemmatizer()
 
@@ -81,13 +82,25 @@ def load_vector_space(file_path):
         raise ValueError("Unsupported vector space format")
 
 # Read document content
-def read_document_content(doc_id):
+''' def read_document_content(doc_id):
     file_path = f"Abstracts/{doc_id + 1}.txt"  # Adjust for 1-indexed filenames
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
     else:
+        return "Document content not found." '''
+
+
+# Read document content from local 'Abstracts' directory
+def read_document_content(doc_id):
+    base_dir = os.path.dirname(__file__)  # Current script directory
+    file_path = os.path.join(base_dir, 'Abstracts', f"{doc_id + 1}.txt")  # 1-indexed filenames
+    if os.path.exists(file_path):
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
+    else:
         return "Document content not found."
+
 
 # Load all necessary data
 @st.cache_data
