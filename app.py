@@ -4,9 +4,13 @@ import math
 from nltk.stem import WordNetLemmatizer
 import ast
 import os
-
+import nltk
 # Initialize lemmatizer
 lemmatizer = WordNetLemmatizer()
+
+
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 # Custom CSS for styling
 st.markdown("""
