@@ -351,7 +351,7 @@ with st.expander("Golden Queries Evaluation", expanded=False):
                          <b>#{rank}: Document {display_doc_id}</b>
                          (<span class="score">Score: {score:.4f}</span>) – {relevance_icon} {relevance_label}
                     </div>
-               """, unsafe_allow_html=True)
+               """, unsafe_allow_html=True)    
 # Footer
 st.markdown("""
     <div class="footer">
